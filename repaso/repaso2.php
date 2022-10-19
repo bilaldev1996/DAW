@@ -18,12 +18,12 @@
             <input type="submit" name="submit" value="Enviar" />
         </form>
         <?php 
-            $elementos = $_POST['coches'];
-            $arrayCoches = [[]];
-            }elseif(isset($_POST['num'])){
+            }elseif(!empty($_POST['num'])){
+                $elementos = $_POST['num'];
+                $arrayCoches = [[]];
                 echo "<p>Introduzca los datos</p>";
                 echo "<form action='#' method='post'>";
-                echo "<input type='hidden' name='coches' value='$elementos'>";
+                echo "<input type='hidden' name='coches' value='$elementos'>";//para mandar al siguiente else el numero de coches que ha introducido el usuario
             
                 echo ("<table>");
                 echo ("<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th></tr>");
@@ -40,18 +40,19 @@
                 
                 echo "<input type='submit' name='enviar' value='enviar'><br>";
                 echo "</form>";
-            }else{
+            }elseif(!empty($arrayCoches)){
                 echo ("<table>");
                 echo ("<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th></tr>");
                 
-                for ($i=0; $i<$elementos; $i++){
+                // Bucle para introducir elementos en el array BIdemensional
+                for ($i=0; $i<$_POST['coches']; $i++){
                         $arrayCoches[$i]['matricula'] = $_POST['matricula'.$i];
                         $arrayCoches[$i]['marca'] = $_POST['marca'.$i];
                         $arrayCoches[$i]['modelo'] = $_POST['modelo'.$i];
                 }
 
-
-                for ($i=0; $i<$elementos; $i++){
+                //Bucle para imprimir el array en una tabla
+                for ($i=0; $i<$_POST['coches']; $i++){
                     echo ("<tr>");
                     echo "<td>".$arrayCoches[$i]['matricula']."</td>"; 
                     echo "<td>".$arrayCoches[$i]['marca']."</td>"; 
@@ -61,10 +62,15 @@
 
                 echo ("</table>");
 
-                
             ?>
         <?php
-            }
+            }else{
         ?>
+        <form action="<?= $_SERVER['PHP_SELF']; ?>" method="POST">
+            <label for="num">¿Cuántos vehiculos deseas introducir?</label>
+            <input type="text" name="num" />
+            <input type="submit" name="submit" value="Enviar" />
+        </form>
+        <?php } ?>
     </body>
 </html>

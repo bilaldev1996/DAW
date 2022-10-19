@@ -7,6 +7,7 @@
     <title>Cuadrado</title>
 </head>
 <body>
+    <!-- Basándote en el ejercicio anterior, rellena la tabla de manera que solo los bordes tengan contenido, quedándose el resto de celdas en blanco -->
     <?php
     if((isset($_POST['filas'])) && (isset($_POST['columnas'])) && ($_POST['filas'] > 0) && ($_POST['columnas'] > 0)){
         $filas = $_POST['filas'];

@@ -7,6 +7,7 @@
     <title>Tabla</title>
 </head>
 <body>
+    <!-- A partir de un número de filas y columnas, crear una tabla con ese tamaño. Las celdas deben estar rellenadas con los valores de las coordenadas de cada celda. -->
     <?php
     if((isset($_POST['filas'])) && (isset($_POST['columnas'])) && ($_POST['filas'] > 0) && ($_POST['columnas'] > 0)){
         $filas = $_POST['filas'];
@@ -29,7 +30,7 @@
             <input type="number" name="columnas"><br>
             <input type="submit" value="Crear tabla">
         </form>
-        <?php
+    <?php
     }
     ?> 
 </body>

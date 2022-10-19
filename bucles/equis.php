@@ -7,6 +7,7 @@
     <title>Equis</title>
 </head>
 <body>
+    <!-- Basándote en el ejercicio anterior, ahora sólo debe aparecer el contenido de los dos diagonale -->
     <?php
     if((isset($_POST['filas'])) && (isset($_POST['columnas'])) && ($_POST['filas'] > 0) && ($_POST['columnas'] > 0)){
         $filas = $_POST['filas'];

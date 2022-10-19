@@ -1,16 +1,49 @@
-<?php 
-    /*  Muestra dentro de una tabla HTML la tabla de multiplicar del numero que reciba como parámetro. Utiliza <thead> con sus respectivos <th> y <tbody> para dibujar la tabla. */
-    function tablaMultiplicar($num){
-        
-        echo "<table border='1'>";
-        echo "<th>Tabla del: $num</th>";
-        echo "<tr>";
-        for ($i=1; $i <=10 ; $i++) { 
-            //echo $num. "*" . $i. "=". ($num*$i). "<br>"; 
-            echo "<td>$num X $i =". ($num*$i) . "</td>"; 
-            echo "</tr>";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de multiplicar</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            margin: auto;
         }
-        echo "</table>";
+        td{
+            border: 2px lightgray solid;
+            width: 2em;
+            height: 2em;
+            text-align: center;
+        }
+        #up{
+            background-color: blue;
+        }
+        #down{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <?php
+    const SIZE =  11;
+    echo "<table>";
+    for($i = 0; $i <= SIZE; $i++){
+        echo "<tr>";
+        for($j = 0; $j <= SIZE; $j++){
+            if($i == 0 && $j == 0){
+                echo "<td id='up'>x</td>";
+            } else if ($i == 0){
+                echo "<td id='up'>", $j-1 ,"</td>";
+            } else if ($j == 0){
+                echo "<td id='down'>", $i-1 ,"</td>";
+            } else {
+                echo "<td>",($i-1)*($j-1),"</td>";
+            }
+        }
+        echo "</tr>";
     }
-    tablaMultiplicar(10);
-?>
+    echo "</table>";
+    ?>
+</body>
+</html>
