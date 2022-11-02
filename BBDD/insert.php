@@ -2,11 +2,20 @@
 <?php
     include("conexion.php");
     include("conectar.php");
-    /* insertar datos */
-    $insertar = mysqli_query($conectar, "INSERT INTO clientes (nombre, apellidos) VALUES ('Samia', 'El Azzouzi')");
-    if (!$insertar) {
-        die("No se pudo insertar los datos: " . mysqli_connect_error());
+    /* recoger datos */
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $expediente = $_POST['expediente'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
+
+    /* insertar datos omitiendo clave primaria y clave foranea */
+    $sql = "INSERT INTO Alumno (idAlumno,nombre, apellidos, expediente, telefono, email,Grupo_idGrupo) VALUES (NULL,'$nombre', '$apellidos', '$expediente', '$telefono', '$email',NULL)";
+
+    if (mysqli_query($conectar, $sql)) {
+        echo "4.Nuevo registro creado satisfactoriamente <br />";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conectar);
     }
-    echo "4.Datos insertados satisfactoriamente <br />";
     echo "--------------------------------------";
 ?>

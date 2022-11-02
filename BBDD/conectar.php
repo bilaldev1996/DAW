@@ -2,7 +2,7 @@
     include("conexion.php");
     
     /* seleccionar base de datos */
-    $db = mysqli_select_db($conectar, "usuarios");
+    $db = mysqli_select_db($conectar, "mydb");
     if (!$db) {
         die("No se pudo seleccionar la base de datos: " . mysqli_connect_error());
     }
