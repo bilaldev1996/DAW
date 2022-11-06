@@ -7,10 +7,7 @@
     <title>Document</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<<<<<<< HEAD
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
->>>>>>> 08b892f5309f8a55ae864168e3649c7b9ca873a7
 </head>
 <body class="container-xl mt-3 ">
     <!-- Crear formulario grupo -->
@@ -43,7 +40,6 @@
             $sql = "INSERT INTO grupo (nombre, curso) VALUES ('$nombre', '$curso')";
 
             if (mysqli_query($conectar, $sql)) {
-<<<<<<< HEAD
                 /* mostrar swal2 */
                 echo "<script>
                     Swal.fire({
@@ -53,12 +49,11 @@
                         confirmButtonText: 'Aceptar'
                     })
                 </script>";
-=======
-                echo "<h2>Nuevo registro creado satisfactoriamente</h2>";
->>>>>>> 08b892f5309f8a55ae864168e3649c7b9ca873a7
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conectar);
             }
+
+            mysqli_close($conectar);
         }
     ?>
 </body>

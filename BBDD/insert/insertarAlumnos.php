@@ -41,11 +41,11 @@
                 <select name="grupo" id="grupo" class="form-select w-25">
                     <?php
                         //conexion
-                        $conexion = mysqli_connect("localhost", "root", "", "mydb") or die("Error en la conexion");
+                        include('../delete/connect.php');
                         //consulta
                         $consulta = "SELECT * FROM Grupo";
                         //ejecutar consulta
-                        $resultado = mysqli_query($conexion, $consulta);
+                        $resultado = mysqli_query($conn, $consulta);
                         //recorrer el resultado
                         while($fila = mysqli_fetch_array($resultado)){
                             echo "<option value='".$fila['idGrupo']."'>".$fila['nombre']."</option>";
@@ -61,8 +61,9 @@
         //comprobar si se ha enviado el formulario
             if(isset($_POST['enviar'])){
 
-                include("conexion.php");
-                include("conectar.php");
+            /*  include("conexion.php");
+                include("conectar.php"); */
+                include('../delete/connect.php');
                 //recoger datos del formulario
                 $nombre = $_POST['nombre'];
                 $apellidos = $_POST['apellidos'];
@@ -72,10 +73,10 @@
                 $grupo = intval($_POST['grupo']);
 
                 //consulta
-                $consulta = "INSERT INTO alumno (nombre, apellidos, expediente, telefono, email, Grupo_idGrupo) VALUES ('$nombre', '$apellidos', '$expediente', '$telefono', '$email', '$grupo')";
+                $consulta = "INSERT INTO Alumno (nombre, apellidos, expediente, telefono, email, Grupo_idGrupo) VALUES ('$nombre', '$apellidos', '$expediente', '$telefono', '$email', '$grupo')";
 
                 //comprobar si se ha insertado y ejecutar consulta
-                if(mysqli_query($conectar, $consulta)){
+                if(mysqli_query($conn, $consulta)){
                     /* mostrar swal2 */
                     echo "<script>
                     Swal.fire({
@@ -85,10 +86,12 @@
                         timer: 1500
                     })
                     </script>";
-                    echo "<h2>Nuevo registro creado satisfactoriamente</h2>";
                 }else{
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
+                    echo "Error: " . $sql . "<br>" . $conn->connect_error;
                 }
+
+                //cerrar conexion
+                mysqli_close($conn);
             }
         ?>
 </body>

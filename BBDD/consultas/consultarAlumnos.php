@@ -39,7 +39,7 @@
                         <td>".$fila['expediente']."</td>
                         <td>".$fila['telefono']."</td>
                         <td>".$fila['email']."</td>
-                        <td>".$fila['Grupo_idGrupo']."</td>
+                        <td>".mysqli_fetch_assoc(mysqli_query($conectar, "SELECT nombre FROM grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
                     </tr>";
             }
             echo "</tbody>
