@@ -15,22 +15,23 @@
     <?php
         /* mostrar resultados alumno y profesores */
         //conexion
-        include("conexion.php");
-        include("conectar.php");
+        /* include("conexion.php");
+        include("conectar.php"); */
+        include("connect.php");
 
         //recoger id de la url
         $id = $_GET['idGrupo']; //7
 
         /* consulta alumno */
         //consulta profesor y alumnos de un mismo grupo
-        $consulta = "SELECT * FROM alumno WHERE Grupo_idGrupo = $id";
+        $consulta = "SELECT * FROM Alumno WHERE Grupo_idGrupo = $id";
 
-        if(!$resultado = mysqli_query($conectar, $consulta)){
+        if(!$resultado = mysqli_query($conn, $consulta)){
             echo "Error en la consulta";
         }
 
         //ejecutar consulta
-        $resultado = mysqli_query($conectar, $consulta);
+        $resultado = mysqli_query($conn, $consulta);
 
 
         /* imprimir resultado de alumno y profesor */
@@ -55,7 +56,7 @@
                     <td>".$fila['expediente']."</td>
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
-                    <td>".mysqli_fetch_assoc(mysqli_query($conectar, "SELECT nombre FROM grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
+                    <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
                 </tr>";
         }
         echo "</tbody>
@@ -63,10 +64,10 @@
         echo "</div>";
 
             /* consulta profesor */
-            $consulta2 = "SELECT * FROM tutoria WHERE Grupo_idGrupo = $id"; //
+            $consulta2 = "SELECT * FROM Tutoria WHERE Grupo_idGrupo = $id"; //
         
-            $resultado2 = mysqli_query($conectar, $consulta2);
-            if(!$resultado2 = mysqli_query($conectar, $consulta2)){
+            $resultado2 = mysqli_query($conn, $consulta2);
+            if(!$resultado2 = mysqli_query($conn, $consulta2)){
                 echo "Error en la consulta";
             }    
 
@@ -85,8 +86,8 @@
         while($fila2 = mysqli_fetch_array($resultado2)){
 
             $idProfesor = $fila2['Profesor_idProfesor'];
-            $consulta3 = "SELECT * FROM profesor WHERE idProfesor = $idProfesor";
-            $resultado3 = mysqli_query($conectar, $consulta3);
+            $consulta3 = "SELECT * FROM Profesor WHERE idProfesor = $idProfesor";
+            $resultado3 = mysqli_query($conn, $consulta3);
             while($fila3 = mysqli_fetch_array($resultado3)){
                 echo "<tr>
                         <td>".$fila3['nombre']."</td>
@@ -101,7 +102,7 @@
         echo "</div>";
 
         //cerrar conexion
-        mysqli_close($conectar);
+        mysqli_close($conn);
         
     ?>
 </body>

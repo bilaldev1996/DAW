@@ -30,16 +30,17 @@
 
     <?php 
         if(isset($_POST['enviar'])){
-            include("conexion.php");
-            include("conectar.php");
+            /* include("conexion.php");
+            include("conectar.php"); */
+            include("connect.php");
             /* recoger datos */
             $nombre = $_POST['nombre'];
             $curso = $_POST['curso'];
 
             /* insertar datos omitiendo clave primaria y clave foranea */
-            $sql = "INSERT INTO grupo (nombre, curso) VALUES ('$nombre', '$curso')";
+            $sql = "INSERT INTO Grupo (nombre, curso) VALUES ('$nombre', '$curso')";
 
-            if (mysqli_query($conectar, $sql)) {
+            if (mysqli_query($conn, $sql)) {
                 /* mostrar swal2 */
                 echo "<script>
                     Swal.fire({
@@ -50,10 +51,10 @@
                     })
                 </script>";
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conectar);
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
 
-            mysqli_close($conectar);
+            mysqli_close($conn);
         }
     ?>
 </body>

@@ -18,7 +18,7 @@
         
         include_once './connect.php';
 
-        $sql = "SELECT * FROM alumno";
+        $sql = "SELECT * FROM Alumno";
         $resultado = mysqli_query($conn, $sql);
         echo "<div class='container-lg mt-5'>";
         echo "<h2>Alumnos</h2>";
@@ -45,8 +45,27 @@
                     <td>".$fila['expediente']."</td>
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
-                    <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
-                    <td><a class='btn btn-danger' href='delete.php?expediente=".$fila['expediente']."'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
+                    <td><a class='btn btn-danger' name='delete'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <script>
+                        document.getElementsByName('delete').forEach((element) => {
+                            element.addEventListener('click', () => {
+                                Swal.fire({
+                                    title: '¿Estas seguro?',
+                                    text: 'No podrás revertir esto',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, eliminar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = 'delete.php?expediente=".$fila['expediente']."';
+                                    }
+                                })
+                            });
+                        });
+                    </script>
                     <td><a class='btn btn-warning' href='update.php?expediente=".$fila['expediente']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
                 </tr>";
         }

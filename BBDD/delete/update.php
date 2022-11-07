@@ -14,10 +14,10 @@
 
     <?php
 
-    include_once './connect.php';
+    include './connect.php';
 
     $expediente = $_GET['expediente'];
-    $sql = "SELECT * FROM alumno WHERE expediente = '$expediente'";
+    $sql = "SELECT * FROM Alumno WHERE expediente = '$expediente'";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
@@ -28,7 +28,7 @@
             $telefono = $row['telefono'];
             $email = $row['email'];
             /* devolver nombre del grupo */
-            $grupo = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM grupo WHERE idGrupo = ".$row['Grupo_idGrupo']))['nombre'];
+            $grupo = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$row['Grupo_idGrupo']))['nombre'];
         }
     }
 
@@ -65,32 +65,32 @@
 
     echo "</div>";
 
-    /* actualizar datos */
-    if(isset($_POST['update'])){
-        $expediente = $_POST['expediente'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $telefono = $_POST['telefono'];
-        $email = $_POST['email'];
-        $grupo = $_POST['grupo'];
+        /* actualizar datos */
+        if(isset($_POST['update'])){
+            $expediente = $_POST['expediente'];
+            $nombre = $_POST['nombre'];
+            $apellido = $_POST['apellido'];
+            $telefono = $_POST['telefono'];
+            $email = $_POST['email'];
+            $grupo = $_POST['grupo'];
 
-        $sql = "UPDATE alumno SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE expediente = '$expediente'";
+            $sql = "UPDATE Alumno SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE expediente = '$expediente'";
 
-        if($conn->query($sql) === TRUE){
-            echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizado',
-                    text: 'El Alumno se ha actualizado correctamente',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location = 'delete&update.php';
-                    }
-                })
-            </script>";
+            if($conn->query($sql) === TRUE){
+                echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado',
+                        text: 'El Alumno se ha actualizado correctamente',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = 'delete&update.php';
+                        }
+                    })
+                </script>";
+            }
         }
-    }
     ?>
     
 </body>

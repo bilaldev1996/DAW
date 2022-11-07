@@ -36,36 +36,37 @@
                 <select name="grupo" id="grupo" class="form-select">
                     <option value="">Selecciona un grupo</option>
                     <?php 
-                        include("conexion.php");
-                        include("conectar.php");
-                        $sql = "SELECT * FROM grupo";
-                        $resultado = mysqli_query($conectar, $sql);
-                        while($fila = mysqli_fetch_assoc($resultado)){
-                            echo "<option value='".$fila['idGrupo']."'>".$fila['nombre']."</option>";
+                        include("connect.php");
+                        $sql = "SELECT * FROM Grupo";
+                        $result = mysqli_query($conn, $sql);
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo "<option value='".$row['idGrupo']."'>".$row['nombre']."</option>";
                         }
                     ?>
                 </select>
                 <label for="grupo">Grupo</label>
+                
             <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-4">
         </form>
     </fieldset>
 
     <?php
         if(isset($_POST['enviar'])){
-            include("conexion.php");
-            include("conectar.php");
+            /* include("conexion.php");
+            include("conectar.php"); */
+            include("connect.php");
             /* recoger datos */
             $nombre = $_POST['nombre'];
             $apellidos = $_POST['apellidos'];
             $telefono = $_POST['telefono'];
             $email = $_POST['email'];
             $grupo = $_POST['grupo'];
-            /* insertar datos omitiendo clave primaria y clave foranea */
-            $sql = "INSERT INTO profesor (nombre, apellidos,telefono,email) VALUES ('$nombre', '$apellidos','$telefono','$email')";
+            /* insertar datos profesor */
+            $sql = "INSERT INTO Profesor (nombre, apellidos,telefono,email) VALUES ('$nombre', '$apellidos','$telefono','$email')";
             /* insertar en la tabla tutoria que enlaza a grupo y profesor */
-            $sql2 = "INSERT INTO tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$grupo', (SELECT MAX(idProfesor) FROM profesor))";
+            $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$grupo', (SELECT MAX(idProfesor) FROM Profesor))";
             
-            if (mysqli_query($conectar, $sql) && mysqli_query($conectar, $sql2)) {
+            if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)) {
                 /* mostrar swal2 */
                 echo "<script>
                 Swal.fire({
@@ -77,7 +78,7 @@
                 </script>";
             }
 
-            mysqli_close($conectar);
+            //mysqli_close($conn);
 
         }
 

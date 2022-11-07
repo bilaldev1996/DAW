@@ -25,7 +25,7 @@
                 <label for="apellidos">Apellidos</label>
             </div>
             <div class="mb-3 form-floating col-md-2">
-                <input type="tel" name="expediente" id="expediente" class=" form-control" placeholder="204">
+                <input type="tel" name="expediente" id="expediente" class=" form-control" placeholder="204" required>
                 <label for="expediente">Expediente</label>
             </div>
             <div class="mb-3 form-floating col-md-2">
@@ -63,7 +63,7 @@
 
             /*  include("conexion.php");
                 include("conectar.php"); */
-                include('../delete/connect.php');
+                include('connect.php');
                 //recoger datos del formulario
                 $nombre = $_POST['nombre'];
                 $apellidos = $_POST['apellidos'];

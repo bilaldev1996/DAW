@@ -13,10 +13,11 @@
         
         <!-- consulta hacia todos los alumnos -->
         <?php 
-            include("conexion.php");
-            include("conectar.php");
-            $sql = "SELECT * FROM profesor";
-            $resultado = mysqli_query($conectar, $sql);
+            /* include("conexion.php");
+            include("conectar.php"); */
+            include("connect.php");
+            $sql = "SELECT * FROM Profesor";
+            $resultado = mysqli_query($conn, $sql);
             echo "<div class='container-lg mt-5'>";
             echo "<h2>Alumnos</h2>";
             echo "<table class='table table-striped table-hover table-bordered'>
@@ -42,7 +43,7 @@
             </table>";
             echo "</div>";
 
-            mysqli_close($conectar);
+            mysqli_close($conn);
         ?>
     </body>
 </html>

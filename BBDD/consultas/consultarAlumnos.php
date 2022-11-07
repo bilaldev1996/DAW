@@ -13,10 +13,11 @@
 
         <!-- consulta hacia todos los alumnos -->
         <?php 
-            include("conexion.php");
-            include("conectar.php");
-            $sql = "SELECT * FROM alumno";
-            $resultado = mysqli_query($conectar, $sql);
+            /* include("conexion.php");
+            include("conectar.php"); */
+            include("connect.php");
+            $sql = "SELECT * FROM Alumno";
+            $resultado = mysqli_query($conn, $sql);
             echo "<div class='container-lg mt-5'>";
             echo "<h2>Alumnos</h2>";
             echo "<table class='table table-striped table-hover table-bordered'>
@@ -39,7 +40,7 @@
                         <td>".$fila['expediente']."</td>
                         <td>".$fila['telefono']."</td>
                         <td>".$fila['email']."</td>
-                        <td>".mysqli_fetch_assoc(mysqli_query($conectar, "SELECT nombre FROM grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
+                        <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
                     </tr>";
             }
             echo "</tbody>

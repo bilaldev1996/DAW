@@ -15,17 +15,18 @@
         
         <!-- Hacer consulta a la base de datos grupo -->
         <?php 
-            include("conexion.php");
-            include("conectar.php");
-            $sql = "SELECT * FROM grupo";
-            $resultado = mysqli_query($conectar, $sql);
+            /* include("conexion.php");
+            include("conectar.php"); */
+            include("connect.php");
+            $sql = "SELECT * FROM Grupo";
+            $resultado = mysqli_query($conn, $sql);
             echo "<h2>Consultar Profesores</h2>";
             while($fila = mysqli_fetch_assoc($resultado)){
                 /* hacer consulta de todos los alumnos y profesores del grupo */
                 echo "<a href='consultarProfesorAlumno.php?idGrupo=".$fila['idGrupo']."' class='btn btn-info m-2'>".$fila['nombre']."</a>";
             }
 
-            mysqli_close($conectar);
+            mysqli_close($conn);
         ?>
 
     </body>
