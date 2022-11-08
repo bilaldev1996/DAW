@@ -38,7 +38,7 @@
             </div>
             <!-- select para el grupo haciendo consulta php0 -->
             <div class="form-floating">
-                <select name="grupo" id="grupo" class="form-select w-25">
+                <select name="grupo" id="grupo" class="form-select w-25" required>
                     <?php
                         //conexion
                         include('../delete/connect.php');
@@ -46,13 +46,28 @@
                         $consulta = "SELECT * FROM Grupo";
                         //ejecutar consulta
                         $resultado = mysqli_query($conn, $consulta);
+                        
                         //recorrer el resultado
                         while($fila = mysqli_fetch_array($resultado)){
                             echo "<option value='".$fila['idGrupo']."'>".$fila['nombre']."</option>";
                         }
-                        ?>
+                    ?>
                 </select>
                 <label for="grupo">Elige un grupo</label>
+                <script>
+                    /* si no hay grupos en el select */
+                    if(document.getElementById('grupo').value == ""){
+                        document.getElementById('grupo').disabled = true;
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'No hay grupos disponibles',
+                                footer: '<a href="../insert/insertarGrupos.php">Crear grupo</a>',
+                                /* al clickar fuera no se cierre */
+                                allowOutsideClick: false,
+                            })
+                    }
+                </script>
             </div>
             <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-4">
         </form>

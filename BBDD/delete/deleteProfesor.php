@@ -24,6 +24,11 @@
         $idProfesor = $_GET['id'];
         $sql = "DELETE FROM Profesor WHERE idProfesor = '$idProfesor'";
 
+        /* borrar registro de la tabla tutoria */
+        $sql2 = "DELETE FROM Tutoria WHERE Profesor_idProfesor = '$idProfesor'";
+        $result2 = mysqli_query($conn, $sql2);
+        
+
         if($conn->query($sql)){
             echo "<script>
                 Swal.fire({

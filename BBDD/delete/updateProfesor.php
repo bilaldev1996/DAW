@@ -51,7 +51,15 @@
                 <label for='email' class='form-label'>Email</label>
                 <input type='email' class='form-control' id='email' name='email' value='$email'>
             </div>
-            <button type='submit' class='btn btn-warning mb-2' name='update'>Update</button>
+            <select class='form-select' aria-label='Default select example' name='idGrupo'>
+                <option selected>Selecciona el profesor</option>";
+                $sql = "SELECT * FROM Grupo";
+                $result = mysqli_query($conn, $sql);
+                while($row = mysqli_fetch_assoc($result)){
+                    echo "<option value='".$row['idGrupo']."'>".$row['nombre']."</option>";
+                }
+            echo "</select>
+            <button type='submit' class='btn btn-warning mb-2 mt-2' name='update'>Update</button>
         </form>";
 
     echo "</div>";
@@ -62,24 +70,39 @@
             $apellido = $_POST['apellido'];
             $telefono = $_POST['telefono'];
             $email = $_POST['email'];
-            $grupo = $_POST['grupo'];
+            $idGrupo = $_POST['idGrupo'];
 
             $sql = "UPDATE Profesor SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE idProfesor = '$idProfesor'";
 
             if($conn->query($sql) === TRUE){
                 echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado',
-                        text: 'El Profesor se ha actualizado correctamente',
-                        confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location = 'delete&update.php';
-                        }
-                    })
-                </script>";
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Profesor actualizado',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function(){
+                            window.location.href = 'delete&update.php';
+                        });
+                    </script>";
             }
+
+            if($idGrupo != 0){
+                $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$idGrupo', '$idProfesor')";
+                if($conn->query($sql2) === TRUE){
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Profesor actualizado con grupo',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function(){
+                                window.location.href = 'delete&update.php';
+                            });
+                        </script>";
+                }
+            }
+            
         }
     ?>
     

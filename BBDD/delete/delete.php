@@ -14,28 +14,28 @@
 
     <?php
 
-        include("connect.php");
+        $serverName = "localhost";
+        $userName = "root";
+        $password = "";
+        $dbName = "mydb";
 
-        /* deshabilitar foreign key para que pueda eliminar */
-        $forkey = "SET FOREIGN_KEY_CHECKS = 0";
-        $result = mysqli_query($conn, $forkey);
+        // Create connection
+        $conn = new mysqli($serverName, $userName, $password, $dbName);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
+        $expediente = $_GET['expediente'];
+        $sql = "DELETE FROM alumno WHERE expediente = '$expediente'";
 
-        $idGrupo = $_GET['id'];
-        /* AL BORRAR EL GRUPO borrar */
-        $sql = "DELETE FROM Grupo WHERE idGrupo = '$idGrupo' ";
-
-        /* borrar alumnos que existen dentro del grupo */
-        $sql2 = "DELETE FROM Alumno WHERE Grupo_idGrupo = '$idGrupo'";
-        $result2 = mysqli_query($conn, $sql2);
-
-
+            /* preguntar si desea eliminar */
         if($conn->query($sql) === TRUE){
             echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Eliminado',
-                    text: 'El Grupo se ha eliminado correctamente',
+                    text: 'El registro se ha eliminado correctamente',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -44,8 +44,8 @@
                 })
             </script>";
         }
-    
 
+        $conn->close();
     ?>
 </body>
 </html>
