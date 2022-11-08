@@ -20,7 +20,7 @@
             include("connect.php");
             $sql = "SELECT * FROM Grupo";
             $resultado = mysqli_query($conn, $sql);
-            echo "<h2>Consultar Profesores</h2>";
+            echo "<h2>Consultar Grupos</h2>";
             while($fila = mysqli_fetch_assoc($resultado)){
                 /* hacer consulta de todos los alumnos y profesores del grupo */
                 echo "<a href='consultarProfesorAlumno.php?idGrupo=".$fila['idGrupo']."' class='btn btn-info m-2'>".$fila['nombre']."</a>";
