@@ -21,7 +21,7 @@
         $result = mysqli_query($conn, $forkey);
 
 
-        $idProfesor = $_GET['idProfesor'];
+        $idProfesor = $_GET['id'];
         $sql = "DELETE FROM Profesor WHERE idProfesor = '$idProfesor'";
 
         if($conn->query($sql)){

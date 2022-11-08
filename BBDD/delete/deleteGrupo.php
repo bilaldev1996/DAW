@@ -16,16 +16,20 @@
 
         include("connect.php");
 
+        /* deshabilitar foreign key para que pueda eliminar */
+        $forkey = "SET FOREIGN_KEY_CHECKS = 0";
+        $result = mysqli_query($conn, $forkey);
 
-        $idAlumno = $_GET['id'];
-        $sql = "DELETE FROM Alumno WHERE idAlumno = '$idAlumno'";
+
+        $idGrupo = $_GET['id'];
+        $sql = "DELETE FROM Grupo WHERE idGrupo = '$idGrupo'";
 
         if($conn->query($sql) === TRUE){
             echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Eliminado',
-                    text: 'El Alumno se ha eliminado correctamente',
+                    text: 'El Grupo se ha eliminado correctamente',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {

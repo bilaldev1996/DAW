@@ -48,23 +48,25 @@
                     <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
                     <td><a class='btn btn-danger' name='deleteAlumno'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <script>
-                        document.getElementsByName('deleteAlumno').forEach((element) => {
-                            element.addEventListener('click', () => {
-                                Swal.fire({
-                                    title: '¿Estas seguro?',
-                                    text: 'No podrás revertir esto',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Si, eliminar'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location = 'deleteAlumno.php?idAlumno=".$fila['idAlumno']."';
-                                    }
-                                })
-                            });
-                        });
+                        document.querySelectorAll('.btn').forEach((item) => {
+                            item.addEventListener('click', (e) => {
+                               let id = e.target.parentNode.parentNode.children[0].innerHTML;
+                                 Swal.fire({
+                                        title: '¿Estas seguro?',
+                                        text: 'No podras revertir los cambios',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Si, borrar'
+                                  }).then((result) => {
+                                        if (result.isConfirmed) {
+                                         window.location.href = './deleteAlumno.php?id='+id;
+                                        }
+                                  })
+                            })
+                        })
+
                     </script>
                     <td><a class='btn btn-warning' href='updateAlumno.php?idAlumno=".$fila['idAlumno']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
                 </tr>";
@@ -96,11 +98,77 @@
                     <td>".$fila['apellidos']."</td>
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
-                    <td><a class='btn btn-danger' href='deleteProfesor.php?idProfesor=".$fila['idProfesor']."' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <script>
+                        document.querySelectorAll('.btn-danger').forEach((item) => {
+                            item.addEventListener('click', (e) => {
+                               let id = e.target.parentNode.parentNode.children[0].innerHTML;
+                                 Swal.fire({
+                                        title: '¿Estas seguro?',
+                                        text: 'No podras revertir los cambios',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Si, borrar'
+                                  }).then((result) => {
+                                        if (result.isConfirmed) {
+                                         window.location.href = './deleteProfesor.php?id='+id;
+                                        }
+                                  })
+                            })
+                        })
+                    </script>
                     <td><a class='btn btn-warning' href='updateProfesor.php?idProfesor=".$fila['idProfesor']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
                 </tr>";
         }
         echo "</tbody></table>";
+
+        /* Tabla Grupos */
+        echo "<h1>Grupos</h1>";
+        $sql = "SELECT * FROM Grupo";
+        $resultado = mysqli_query($conn, $sql);
+        echo "<table class='table table-striped table-hover table-bordered'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Curso</th>
+                        <th colspan='2' class='text-center'>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        while($fila = mysqli_fetch_assoc($resultado)){
+            echo "<tr>
+                    <td>".$fila['idGrupo']."</td>
+                    <td>".$fila['nombre']."</td>
+                    <td>".$fila['curso']."</td>
+                    <td><a class='btn btn-danger' name='deleteGrupo'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <script>
+                        document.querySelectorAll('.btn-danger').forEach((item) => {
+                            item.addEventListener('click', (e) => {
+                               let id = e.target.parentNode.parentNode.children[0].innerHTML;
+                                 Swal.fire({
+                                        title: '¿Estas seguro?',
+                                        text: 'No podras revertir los cambios',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Si, borrar'
+                                  }).then((result) => {
+                                        if (result.isConfirmed) {
+                                         window.location.href = './deleteGrupo.php?id='+id;
+                                        }
+                                  })
+                            })
+                        })
+                    </script>
+                    <td><a class='btn btn-warning' href='updateGrupo.php?idGrupo=".$fila['idGrupo']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
+                </tr>";
+        }
+        echo "</tbody></table>";
+
         echo "</div>";
 
         
