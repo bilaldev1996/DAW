@@ -60,20 +60,74 @@
                                     confirmButtonText: 'Si, eliminar'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location = 'delete.php?expediente=".$fila['expediente']."';
+                                        window.location = 'deleteAlumno.php?idAlumno=".$fila['idAlumno']."';
                                     }
                                 })
                             });
                         });
                     </script>
-                    <td><a class='btn btn-warning' href='update.php?expediente=".$fila['expediente']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
+                    <td><a class='btn btn-warning' href='updateAlumno.php?idAlumno=".$fila['idAlumno']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
+                </tr>";
+        }
+        echo "</tbody></table>";
+
+        /* Tabla Profesores */
+        echo "<h1>Profesores</h1>";
+        
+        $sql = "SELECT * FROM Profesor";
+        $resultado = mysqli_query($conn, $sql);
+        echo "<table class='table table-striped table-hover table-bordered'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th colspan='2' class='text-center'>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        while($fila = mysqli_fetch_assoc($resultado)){
+            /* imprimir tabla con todos los profesores */
+            echo "<tr>
+                    <td>".$fila['idProfesor']."</td>
+                    <td>".$fila['nombre']."</td>
+                    <td>".$fila['apellidos']."</td>
+                    <td>".$fila['telefono']."</td>
+                    <td>".$fila['email']."</td>
+                    <td><a class='btn btn-danger' name='delete'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <script>
+                        document.getElementsByName('delete').forEach((element) => {
+                            element.addEventListener('click', () => {
+                                Swal.fire({
+                                    title: '¿Estas seguro?',
+                                    text: 'No podrás revertir esto',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, eliminar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = 'deleteProfesor.php?idProfesor=".$fila['idProfesor']."';
+                                    }
+                                })
+                            });
+                        });
+                    </script>
+                    <td><a class='btn btn-warning' href='updateProfesor.php?idProfesor=".$fila['idProfesor']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
                 </tr>";
         }
         echo "</tbody></table>";
         echo "</div>";
+
+        
+
+
+        //cerrar conexion
         $conn->close();
 
-    ?>
     ?>
 
 </body>

@@ -34,7 +34,8 @@
             <!-- Crear select con todos los grupos disponibles -->
             <div class="mb-3 form-floating col-md-4">
                 <select name="grupo" id="grupo" class="form-select">
-                    <option value="">Selecciona un grupo</option>
+                    <option value="0">Selecciona un grupo</option>
+                    
                     <?php 
                         include("connect.php");
                         $sql = "SELECT * FROM Grupo";
@@ -63,20 +64,42 @@
             $grupo = $_POST['grupo'];
             /* insertar datos profesor */
             $sql = "INSERT INTO Profesor (nombre, apellidos,telefono,email) VALUES ('$nombre', '$apellidos','$telefono','$email')";
-            /* insertar en la tabla tutoria que enlaza a grupo y profesor */
-            $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$grupo', (SELECT MAX(idProfesor) FROM Profesor))";
-            
-            if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)) {
+
+            /* ejecutamos la consulta para poder obtener el ultimo ID insertado */
+            $result = mysqli_query($conn, $sql);
+
+            /* almacenar  ultimo id insertado */
+            $idProfesor = mysqli_insert_id($conn);
+
+            $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo,Profesor_idProfesor) VALUES ('$grupo','$idProfesor')";
+
+            if ($result && mysqli_query($conn, $sql2)) {
                 /* mostrar swal2 */
                 echo "<script>
                 Swal.fire({
                     icon: 'success',
-                    title: 'Profesor insertado correctamente',
+                    title: 'Profesor insertado con grupo asignado',
                     showConfirmButton: false,
                     timer: 1500
                 })
                 </script>";
+            }else if(mysqli_query($conn, $sql)){
+                echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Profesor insertado sin ningún grupo',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                </script>";
+
             }
+            /* insertar en la tabla tutoria que enlaza a grupo y profesor */
+            //$sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$grupo', '$last_id')";
+            
+
+
+            
 
             //mysqli_close($conn);
 

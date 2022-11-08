@@ -17,8 +17,8 @@
         include("connect.php");
 
 
-        $expediente = $_GET['expediente'];
-        $sql = "DELETE FROM Alumno WHERE expediente = '$expediente'";
+        $idAlumno = $_GET['idAlumno'];
+        $sql = "DELETE FROM Alumno WHERE idAlumno = '$idAlumno'";
 
         if($conn->query($sql) === TRUE){
             echo "<script>

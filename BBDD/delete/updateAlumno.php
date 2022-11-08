@@ -16,17 +16,19 @@
 
     include './connect.php';
 
-    $expediente = $_GET['expediente'];
-    $sql = "SELECT * FROM Alumno WHERE expediente = '$expediente'";
+    $idAlumno = $_GET['idAlumno'];
+    $sql = "SELECT * FROM Alumno WHERE idAlumno = '$idAlumno'";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
+            $idAlumno = $row['idAlumno'];
             $expediente = $row['expediente'];
             $nombre = $row['nombre'];
             $apellido = $row['apellidos'];
             $telefono = $row['telefono'];
             $email = $row['email'];
+
             /* devolver nombre del grupo */
             $grupo = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$row['Grupo_idGrupo']))['nombre'];
         }
@@ -74,7 +76,7 @@
             $email = $_POST['email'];
             $grupo = $_POST['grupo'];
 
-            $sql = "UPDATE Alumno SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE expediente = '$expediente'";
+            $sql = "UPDATE Alumno SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE idAlumno = '$idAlumno'";
 
             if($conn->query($sql) === TRUE){
                 echo "<script>
