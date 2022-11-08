@@ -46,9 +46,9 @@
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
                     <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
-                    <td><a class='btn btn-danger' name='deleteAlumno'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger btn-alumno' name='deleteAlumno'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <script>
-                        document.querySelectorAll('.btn').forEach((item) => {
+                        document.querySelectorAll('.btn-alumno').forEach((item) => {
                             item.addEventListener('click', (e) => {
                                let id = e.target.parentNode.parentNode.children[0].innerHTML;
                                  Swal.fire({
@@ -98,24 +98,24 @@
                     <td>".$fila['apellidos']."</td>
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
-                    <td><a class='btn btn-danger' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger btn-profesor' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <script>
-                        document.querySelectorAll('.btn-danger').forEach((item) => {
+                        document.querySelectorAll('.btn-profesor').forEach((item) => {
                             item.addEventListener('click', (e) => {
                                let id = e.target.parentNode.parentNode.children[0].innerHTML;
-                                 Swal.fire({
-                                        title: '¿Estas seguro?',
-                                        text: 'No podras revertir los cambios',
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Si, borrar'
-                                  }).then((result) => {
-                                        if (result.isConfirmed) {
-                                         window.location.href = './deleteProfesor.php?id='+id;
-                                        }
-                                  })
+                                Swal.fire({
+                                    title: '¿Estas seguro?',
+                                    text: 'No podras revertir los cambios',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, borrar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = './deleteProfesor.php?id='+id;
+                                    }
+                                })
                             })
                         })
                     </script>
@@ -143,9 +143,9 @@
                     <td>".$fila['idGrupo']."</td>
                     <td>".$fila['nombre']."</td>
                     <td>".$fila['curso']."</td>
-                    <td><a class='btn btn-danger' name='deleteGrupo'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger btn-grupo' name='deleteGrupo'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <script>
-                        document.querySelectorAll('.btn-danger').forEach((item) => {
+                        document.querySelectorAll('.btn-grupo').forEach((item) => {
                             item.addEventListener('click', (e) => {
                                let id = e.target.parentNode.parentNode.children[0].innerHTML;
                                  Swal.fire({
