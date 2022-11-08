@@ -136,6 +136,7 @@
                         <th>Curso</th>
                         <th colspan='2' class='text-center'>Acciones</th>
                     </tr>
+                    
                 </thead>
                 <tbody>";
         while($fila = mysqli_fetch_assoc($resultado)){
