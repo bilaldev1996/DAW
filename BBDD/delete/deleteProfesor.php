@@ -16,6 +16,10 @@
 
         include("connect.php");
 
+        /* deshabilitar foreign key para que pueda eliminar */
+        $forkey = "SET FOREIGN_KEY_CHECKS = 0";
+        $result = mysqli_query($conn, $forkey);
+
 
         $idProfesor = $_GET['idProfesor'];
         $sql = "DELETE FROM Profesor WHERE idProfesor = '$idProfesor'";

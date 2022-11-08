@@ -46,9 +46,9 @@
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
                     <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
-                    <td><a class='btn btn-danger' name='delete'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger' name='deleteAlumno'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <script>
-                        document.getElementsByName('delete').forEach((element) => {
+                        document.getElementsByName('deleteAlumno').forEach((element) => {
                             element.addEventListener('click', () => {
                                 Swal.fire({
                                     title: '¿Estas seguro?',
@@ -96,26 +96,7 @@
                     <td>".$fila['apellidos']."</td>
                     <td>".$fila['telefono']."</td>
                     <td>".$fila['email']."</td>
-                    <td><a class='btn btn-danger' name='delete'>Delete <i class='bi bi-trash-fill'></i></a></td>
-                    <script>
-                        document.getElementsByName('delete').forEach((element) => {
-                            element.addEventListener('click', () => {
-                                Swal.fire({
-                                    title: '¿Estas seguro?',
-                                    text: 'No podrás revertir esto',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Si, eliminar'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location = 'deleteProfesor.php?idProfesor=".$fila['idProfesor']."';
-                                    }
-                                })
-                            });
-                        });
-                    </script>
+                    <td><a class='btn btn-danger' href='deleteProfesor.php?idProfesor=".$fila['idProfesor']."' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
                     <td><a class='btn btn-warning' href='updateProfesor.php?idProfesor=".$fila['idProfesor']."'>Edit <i class='bi bi-arrow-clockwise'></i></a></td>
                 </tr>";
         }
