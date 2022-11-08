@@ -15,19 +15,21 @@
     <?php
 
     include './connect.php';
-
-    $idGrupo = $_GET['id'];
+    $idGrupo = $_GET['idGrupo'];
     $sql = "SELECT * FROM Grupo WHERE idGrupo = '$idGrupo'";
     $result = $conn->query($sql);
-
     
-
+    
+    
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
             $nombre = $row['nombre'];
             $curso = $row['curso'];
         }
+    }else{
+        echo "no hay datos";
     }
+    
 
     /* crear formulario */
     echo "<div class='container-md mt-2 w-50'>";
@@ -60,6 +62,10 @@
                         title: 'Grupo actualizado',
                         text: 'El grupo se ha actualizado correctamente',
                         confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location = 'delete&update.php';
+                        }
                     })
                 </script>";
             }else{
