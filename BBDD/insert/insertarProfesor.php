@@ -78,30 +78,25 @@
 
             }
 
-            /* almacenar  ultimo id insertado */
-            $idProfesor = mysqli_insert_id($conn);
-
-            $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo,Profesor_idProfesor) VALUES ('$grupo','$idProfesor')";
-
-            if (mysqli_query($conn, $sql2)) {
-                /* mostrar swal2 */
-                echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Profesor insertado con grupo asignado',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                </script>";
+            /* si se selecciona algun grupo */
+            if($grupo != 0){
+                /* obtener el ultimo id insertado */
+                $lastId = mysqli_insert_id($conn);
+                /* insertar datos en la tabla intermedia */
+                $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo,Profesor_idProfesor) VALUES ('$grupo','$lastId')";
+                if(mysqli_query($conn, $sql2)){
+                    echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Profesor insertado con grupo',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    </script>";
+                }
             }
-            /* insertar en la tabla tutoria que enlaza a grupo y profesor */
-            //$sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$grupo', '$last_id')";
-            
 
-
-            
-
-            //mysqli_close($conn);
+            mysqli_close($conn);
 
         }
 

@@ -14,18 +14,28 @@
 
     <?php
 
-        include("connect.php");
+        $serverName = "localhost";
+        $userName = "root";
+        $password = "";
+        $dbName = "mydb";
 
+        // Create connection
+        $conn = new mysqli($serverName, $userName, $password, $dbName);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-        $idAlumno = $_GET['id'];
-        $sql = "DELETE FROM Alumno WHERE idAlumno = '$idAlumno'";
+        $expediente = $_GET['expediente'];
+        $sql = "DELETE FROM alumno WHERE expediente = '$expediente'";
 
+            /* preguntar si desea eliminar */
         if($conn->query($sql) === TRUE){
             echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Eliminado',
-                    text: 'El Alumno se ha eliminado correctamente',
+                    text: 'El registro se ha eliminado correctamente',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -34,8 +44,8 @@
                 })
             </script>";
         }
-    
 
+        $conn->close();
     ?>
 </body>
 </html>

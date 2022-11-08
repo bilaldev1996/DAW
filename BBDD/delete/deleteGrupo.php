@@ -22,7 +22,13 @@
 
 
         $idGrupo = $_GET['id'];
-        $sql = "DELETE FROM Grupo WHERE idGrupo = '$idGrupo'";
+        /* AL BORRAR EL GRUPO borrar */
+        $sql = "DELETE FROM Grupo WHERE idGrupo = '$idGrupo' ";
+
+        /* borrar alumnos que existen dentro del grupo */
+        $sql2 = "DELETE FROM Alumno WHERE Grupo_idGrupo = '$idGrupo'";
+        $result2 = mysqli_query($conn, $sql2);
+
 
         if($conn->query($sql) === TRUE){
             echo "<script>

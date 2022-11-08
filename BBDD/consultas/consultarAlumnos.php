@@ -34,14 +34,14 @@
                     <tbody>";
             while($fila = mysqli_fetch_assoc($resultado)){
                 /* imprimir tabla con todos los alumnos */
-                echo "<tr>
-                        <td>".$fila['nombre']."</td>
-                        <td>".$fila['apellidos']."</td>
-                        <td>".$fila['expediente']."</td>
-                        <td>".$fila['telefono']."</td>
-                        <td>".$fila['email']."</td>
-                        <td>".mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre']."</td>
-                    </tr>";
+                    echo "<tr>
+                            <td>".$fila['nombre']."</td>
+                            <td>".$fila['apellidos']."</td>
+                            <td>".$fila['expediente']."</td>
+                            <td>".$fila['telefono']."</td>
+                            <td>".$fila['email']."</td>
+                            <td>".mysqli_fetch_assoc(mysqli_query($conn,"SELECT nombre FROM Grupo WHERE idGrupo = $fila[Grupo_idGrupo]"))['nombre']."</td>
+                        </tr>";
             }
             echo "</tbody>
             </table>";
