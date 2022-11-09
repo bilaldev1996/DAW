@@ -14,7 +14,7 @@
 
     <?php
 
-        include("connect.php");
+        include("../connect.php");
 
         /* deshabilitar foreign key para que pueda eliminar */
         $forkey = "SET FOREIGN_KEY_CHECKS = 0";
@@ -39,7 +39,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location = 'delete&update.php';
+                        window.location = 'delete&updateGrupo.php';
                     }
                 })
             </script>";

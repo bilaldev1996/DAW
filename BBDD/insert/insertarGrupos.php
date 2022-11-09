@@ -8,6 +8,7 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 <body class="container-xl mt-3 ">
     <!-- Crear formulario grupo -->
@@ -23,33 +24,51 @@
                 <input type="text" name="curso" id="curso" class=" form-control" placeholder="DAW">
                 <label for="curso">Curso</label>
             </div>
-            <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-4">
+            <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-2">
+            <a href="../index.php" class="btn btn-info mt-2 mb-2 col-md-1 ">Volver</a>
         </form>
     </fieldset>
     
 
     <?php 
+    
         if(isset($_POST['enviar'])){
             /* include("conexion.php");
             include("conectar.php"); */
-            include("connect.php");
+            include("../connect.php");
             /* recoger datos */
             $nombre = $_POST['nombre'];
             $curso = $_POST['curso'];
 
-            /* insertar datos omitiendo clave primaria y clave foranea */
             $sql = "INSERT INTO Grupo (nombre, curso) VALUES ('$nombre', '$curso')";
 
+            /* verificar si el nombre del grupo insertado existe en la BBDD */
+            $verificar = mysqli_query($conn, "SELECT * FROM Grupo WHERE nombre = '$nombre'");
+            if(mysqli_num_rows($verificar) > 0){
+                ?>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>El grupo ya existe</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                exit();
+            }
+
             if (mysqli_query($conn, $sql)) {
-                /* mostrar swal2 */
-                echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Grupo creado',
-                        text: 'El grupo se ha creado correctamente',
-                        confirmButtonText: 'Aceptar'
-                    })
-                </script>";
+                ?>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Grupo insertado correctamente</strong>
+                        </div>
+                    </div>
+                <?php
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }

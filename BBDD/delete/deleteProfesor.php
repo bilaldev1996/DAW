@@ -14,7 +14,7 @@
 
     <?php
 
-        include("connect.php");
+        include("../connect.php");
 
         /* deshabilitar foreign key para que pueda eliminar */
         $forkey = "SET FOREIGN_KEY_CHECKS = 0";
@@ -27,6 +27,11 @@
         /* borrar registro de la tabla tutoria */
         $sql2 = "DELETE FROM Tutoria WHERE Profesor_idProfesor = '$idProfesor'";
         $result2 = mysqli_query($conn, $sql2);
+
+        /* borrar grupo asignado al profesor en la tabla tutoria */
+        $sql3 = "UPDATE Tutoria SET Grupo_idGrupo = NULL WHERE Profesor_idProfesor = '$idProfesor'";
+        $result3 = mysqli_query($conn, $sql3);
+        
         
 
         if($conn->query($sql)){
@@ -38,7 +43,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location = 'delete&update.php';
+                        window.location = 'delete&updateProfesor.php';
                     }
                 })
             </script>";
