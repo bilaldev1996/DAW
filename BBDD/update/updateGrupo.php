@@ -14,7 +14,7 @@
 
     <?php
 
-    include './connect.php';
+    include '../connect.php';
     $idGrupo = $_GET['idGrupo'];
     $sql = "SELECT * FROM Grupo WHERE idGrupo = '$idGrupo'";
     $result = $conn->query($sql);
@@ -34,7 +34,9 @@
     /* crear formulario */
     echo "<div class='container-md mt-2 w-50'>";
     echo "<h2>Editar Grupo</h2>";
-    echo "<form action='#' method='POST'>
+    echo "<fieldset class='border p-2'>
+        <legend class='w-auto'>Datos del Grupo</legend>
+        <form action='#' method='POST'>
             <div class='mb-3'>
                 <label for='nombre' class='form-label'>Nombre</label>
                 <input type='text' class='form-control' id='nombre' name='nombre' value='$nombre'>
@@ -43,9 +45,10 @@
                 <label for='curso' class='form-label'>Curso</label>
                 <input type='text' class='form-control' id='curso' name='curso' value='$curso'>
             </div>
-            <button type='submit' class='btn btn-warning mb-2' name='update'>Update</button>
-        </form>";
-
+            <button type='submit' class='btn btn-warning mb-2' name='update'>Actualizar</button>
+            <a type='button' class='btn btn-primary mb-2' onclick='history.go(-1)'>Volver</a>
+            </form>";
+            
     echo "</div>";
 
         /* actualizar datos */
@@ -54,6 +57,23 @@
             $curso = $_POST['curso'];
 
             $sql = "UPDATE Grupo SET nombre = '$nombre', curso = '$curso' WHERE idGrupo = '$idGrupo'";
+
+            /* verificar si el nombre del grupo insertado existe en la BBDD */
+            $verificar = mysqli_query($conn, "SELECT * FROM Grupo WHERE nombre = '$nombre'");
+            if(mysqli_num_rows($verificar) > 0){
+                ?>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>El grupo ya existe</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                exit();
+            }
 
             if($conn->query($sql) === TRUE){
                 echo "<script>
@@ -64,7 +84,7 @@
                         confirmButtonText: 'Aceptar'
                     }).then((result) => {
                         if(result.isConfirmed){
-                            window.location = 'delete&update.php';
+                            window.location = '../delete/deleteUpdateGrupo.php';
                         }
                     })
                 </script>";

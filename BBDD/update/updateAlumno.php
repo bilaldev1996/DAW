@@ -14,27 +14,36 @@
 
     <?php
 
-    include './connect.php';
+    include '../connect.php';
 
-    $idProfesor = $_GET['idProfesor'];
-    $sql = "SELECT * FROM Profesor WHERE idProfesor = '$idProfesor'";
+    $idAlumno = $_GET['idAlumno'];
+    $sql = "SELECT * FROM Alumno WHERE idAlumno = '$idAlumno'";
     $result = $conn->query($sql);
-
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            $idAlumno = $row['idProfesor'];
+            $idAlumno = $row['idAlumno'];
+            $expediente = $row['expediente'];
             $nombre = $row['nombre'];
             $apellido = $row['apellidos'];
             $telefono = $row['telefono'];
             $email = $row['email'];
+
+            /* devolver nombre del grupo */
+            $grupo = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$row['Grupo_idGrupo']))['nombre'];
         }
     }
 
     /* crear formulario */
     echo "<div class='container-md mt-2 w-50'>";
-    echo "<h2>Editar Profesor</h2>";
-    echo "<form action='#' method='POST'>
+    echo "<h2>Editar alumno</h2>";
+    echo "<fieldset class='border p-2'>
+        <legend class='w-auto'>Datos del alumno</legend>
+        <form action='#' method='POST'>
+            <div class='mb-3'>
+                <label for='expediente' class='form-label'>Expediente</label>
+                <input type='text' class='form-control bg-info' id='expediente' name='expediente' value='$expediente' readonly>
+            </div>
             <div class='mb-3'>
                 <label for='nombre' class='form-label'>Nombre</label>
                 <input type='text' class='form-control' id='nombre' name='nombre' value='$nombre'>
@@ -51,58 +60,42 @@
                 <label for='email' class='form-label'>Email</label>
                 <input type='email' class='form-control' id='email' name='email' value='$email'>
             </div>
-            <select class='form-select' aria-label='Default select example' name='idGrupo'>
-                <option selected>Selecciona el profesor</option>";
-                $sql = "SELECT * FROM Grupo";
-                $result = mysqli_query($conn, $sql);
-                while($row = mysqli_fetch_assoc($result)){
-                    echo "<option value='".$row['idGrupo']."'>".$row['nombre']."</option>";
-                }
-            echo "</select>
-            <button type='submit' class='btn btn-warning mb-2 mt-2' name='update'>Update</button>
-        </form>";
+            <div class='mb-3'>
+                <label for='grupo' class='form-label'>Grupo</label>
+                <input type='text' class='form-control bg-info' id='grupo' name='grupo' value='$grupo' readonly>
+            </div>
+            <button type='submit' class='btn btn-warning mb-2' name='update'>Actualizar</button>
+            <a type='button'  class='btn btn-primary mb-2' onclick='history.go(-1)'>Volver</a>
+        </form>
+    </fieldset>";
 
     echo "</div>";
 
         /* actualizar datos */
         if(isset($_POST['update'])){
+            $expediente = $_POST['expediente'];
             $nombre = $_POST['nombre'];
             $apellido = $_POST['apellido'];
             $telefono = $_POST['telefono'];
             $email = $_POST['email'];
-            $idGrupo = $_POST['idGrupo'];
+            $grupo = $_POST['grupo'];
 
-            $sql = "UPDATE Profesor SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE idProfesor = '$idProfesor'";
+            $sql = "UPDATE Alumno SET nombre = '$nombre', apellidos = '$apellido', telefono = '$telefono', email = '$email' WHERE idAlumno = '$idAlumno'";
 
             if($conn->query($sql) === TRUE){
                 echo "<script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Profesor actualizado',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function(){
-                            window.location.href = 'delete&update.php';
-                        });
-                    </script>";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado',
+                        text: 'El Alumno se ha actualizado correctamente',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = '../delete/delete&updateAlumno.php';
+                        }
+                    })
+                </script>";
             }
-
-            if($idGrupo != 0){
-                $sql2 = "INSERT INTO Tutoria (Grupo_idGrupo, Profesor_idProfesor) VALUES ('$idGrupo', '$idProfesor')";
-                if($conn->query($sql2) === TRUE){
-                    echo "<script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Profesor actualizado con grupo',
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function(){
-                                window.location.href = 'delete&update.php';
-                            });
-                        </script>";
-                }
-            }
-            
         }
     ?>
     

@@ -41,7 +41,7 @@
                 <select name="grupo" id="grupo" class="form-select w-25" required>
                     <?php
                         //conexion
-                        include('../delete/connect.php');
+                        include('../connect.php');
                         //consulta
                         $consulta = "SELECT * FROM Grupo";
                         //ejecutar consulta
@@ -69,7 +69,8 @@
                     }
                 </script>
             </div>
-            <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-4">
+            <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mt-2 mb-2 col-md-2">
+            <a href="../index.php" class="btn btn-info mt-2 mb-2 col-md-1 ">Volver</a>
         </form>
     </fieldset>
         <?php
@@ -78,7 +79,7 @@
 
             /*  include("conexion.php");
                 include("conectar.php"); */
-                include('connect.php');
+                include('../connect.php');
                 //recoger datos del formulario
                 $nombre = $_POST['nombre'];
                 $apellidos = $_POST['apellidos'];
@@ -87,20 +88,29 @@
                 $email = $_POST['email'];
                 $grupo = intval($_POST['grupo']);
 
+                /* verificar si el expediente existe */
+                $verificar = mysqli_query($conn, "SELECT * FROM Alumno WHERE expediente = '$expediente'");
+                if(mysqli_num_rows($verificar) > 0){
+                    echo "<script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ya existe un alumno con este expediente'
+                            allowOutsideClick: false,
+                        })
+                    </script>";
+                }
+
                 //consulta
                 $consulta = "INSERT INTO Alumno (nombre, apellidos, expediente, telefono, email, Grupo_idGrupo) VALUES ('$nombre', '$apellidos', '$expediente', '$telefono', '$email', '$grupo')";
 
                 //comprobar si se ha insertado y ejecutar consulta
                 if(mysqli_query($conn, $consulta)){
-                    /* mostrar swal2 */
-                    echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Alumno insertado correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    </script>";
+                    ?>
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Alumno insertado correctamente</h4>
+                        <p>El alumno <?php echo $nombre." ".$apellidos ?> se ha insertado correctamente</p>
+                    <?php
                 }else{
                     echo "Error: " . $sql . "<br>" . $conn->connect_error;
                 }

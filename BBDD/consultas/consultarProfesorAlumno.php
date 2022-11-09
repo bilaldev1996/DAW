@@ -13,17 +13,13 @@
     
 
     <?php
-        /* mostrar resultados alumno y profesores */
         //conexion
-        /* include("conexion.php");
-        include("conectar.php"); */
-        include("connect.php");
+        include("../connect.php");
 
         //recoger id de la url
         $id = $_GET['idGrupo']; //7
 
         /* consulta alumno */
-        //consulta profesor y alumnos de un mismo grupo
         $consulta = "SELECT * FROM Alumno WHERE Grupo_idGrupo = $id";
 
         if(!$resultado = mysqli_query($conn, $consulta)){

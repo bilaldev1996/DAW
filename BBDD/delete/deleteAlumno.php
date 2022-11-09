@@ -14,7 +14,7 @@
 
     <?php
 
-        include("connect.php");
+        include("../connect.php");
 
 
         $idAlumno = $_GET['id'];
@@ -29,7 +29,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location = 'delete&update.php';
+                        window.location = 'delete&updateAlumno.php';
                     }
                 })
             </script>";
