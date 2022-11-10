@@ -13,8 +13,27 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <style>
+        body{
+            width: 100%;
+            background-image: url('./fp.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        div.container{
+            background-image: url(./layout_set_logo.jpg);
+            background-repeat: no-repeat;
+            background-position: left;
+        }
         
+    </style>
+    <body>
+         
         <?php include './templates/header.php'; ?>
+        <div>
+            <!-- imgagen de fondo -->
+        </div>
+
     </body>
 </html>

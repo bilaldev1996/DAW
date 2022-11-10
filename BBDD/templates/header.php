@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container bg-white">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center mt-3">Instituto</h1>
+            <h1 class="text-center mt-3 fw-bold text-success">IES Murallas Reales</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-grid justify-content-center ">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php">Inicio</a>
@@ -19,7 +19,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" >Borrar/Actualizar</a>
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" >Borrar/Actualizar</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="./delete/deleteUpdateGrupo.php">Borrar/Actualizar Grupo</a>
                         <a class="dropdown-item" href="./delete/delete&updateAlumno.php">Borrar/Actualizar Alumno</a>
@@ -27,7 +27,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" >Consultar</a>
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" >Consultar</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="./consultas/consultarGrupos.php">Consultar Grupos</a>
                         <a class="dropdown-item" href="./consultas/consultarAlumnos.php">Consultar Alumnos</a>
@@ -38,3 +38,4 @@
         </div>
     </div>
 </div>
+

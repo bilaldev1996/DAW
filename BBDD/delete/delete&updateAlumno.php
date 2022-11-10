@@ -53,10 +53,10 @@
                     echo "<td>" . $fila['expediente'] . "</td>";
                     echo "<td>" . $fila['telefono'] . "</td>";
                     echo "<td>" . $fila['email'] . "</td>";
-                    echo "<td>" . $fila['Grupo_idGrupo'] . "</td>";
+                    $grupo = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM Grupo WHERE idGrupo = ".$fila['Grupo_idGrupo']))['nombre'];
+                    echo "<td>" . $grupo . "</td>";
                 ?>
-                <td><?php mysqli_fetch_assoc(mysqli_query($conn,"SELECT nombre FROM Grupo WHERE idGrupo = $fila[Grupo_idGrupo]"))['nombre']?></td>
-                <td><a class='btn btn-danger btn-alumno' name='deleteAlumno'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                <td><a class='btn btn-danger btn-alumno' name='deleteAlumno'>Borrar <i class='bi bi-trash-fill'></i></a></td>
                 <script>
                     document.querySelectorAll('.btn-alumno').forEach((item) => {
                         item.addEventListener('click', (e) => {
@@ -78,7 +78,7 @@
                     })
                 </script>
                 <?php
-                    echo "<td><a class='btn btn-warning btn-alumno' name='updateAlumno' href='../update/updateAlumno.php?idAlumno=". $fila['idAlumno'] ." '>Edit <i class='bi bi-pencil-fill'></i></a></td>";
+                    echo "<td><a class='btn btn-warning btn-alumno' name='updateAlumno' href='../update/updateAlumno.php?idAlumno=". $fila['idAlumno'] ." '>Editar <i class='bi bi-pencil-fill'></i></a></td>";
                 ?>
             </tr>
             <?php

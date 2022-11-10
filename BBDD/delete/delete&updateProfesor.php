@@ -43,7 +43,7 @@
                 <tbody>
                     <?php
                     while ($fila = mysqli_fetch_assoc($resultado)) {
-                        /* imprimir tabla con todos los profesores */
+                        
                         $sql = "SELECT * FROM Tutoria WHERE Profesor_idProfesor = $fila[idProfesor]";
                         $resultado2 = mysqli_query($conn, $sql);
                         $fila2 = mysqli_fetch_assoc($resultado2);
@@ -59,7 +59,7 @@
                         <td>" . $fila['telefono'] . "</td>
                         <td>" . $fila['email'] . "</td>
                         <td>" . $grupo . "</td>
-                        <td><a class='btn btn-danger btn-profesor' name='deleteProfesor'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                        <td><a class='btn btn-danger btn-profesor' name='deleteProfesor'>Borrar <i class='bi bi-trash-fill'></i></a></td>
                         <script>
                             document.querySelectorAll('.btn-profesor').forEach((item) => {
                                 item.addEventListener('click', (e) => {
@@ -80,7 +80,7 @@
                                 })
                             })
                         </script>
-                        <td><a class='btn btn-warning' href='../update/updateProfesor.php?idProfesor=" . $fila['idProfesor'] . "&grupo=$grupo'>Edit <i class='bi bi-pencil-fill'></i></a></td>
+                        <td><a class='btn btn-warning' href='../update/updateProfesor.php?idProfesor=" . $fila['idProfesor'] . "&grupo=$grupo'>Editar <i class='bi bi-pencil-fill'></i></a></td>
                     </tr>";
                     }
                     echo "</tbody></table>";

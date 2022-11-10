@@ -95,7 +95,10 @@
         }
         echo "</tbody>
             </table>";
+            /* volver*/
+            echo "<a class='btn btn-primary' onclick='history.go(-1)'>Volver</a>";
         echo "</div>";
+
 
         //cerrar conexion
         mysqli_close($conn);

@@ -22,12 +22,23 @@
 
 
         $idGrupo = $_GET['id'];
-        /* AL BORRAR EL GRUPO borrar */
+        
         $sql = "DELETE FROM Grupo WHERE idGrupo = '$idGrupo' ";
 
         /* borrar alumnos que existen dentro del grupo */
         $sql2 = "DELETE FROM Alumno WHERE Grupo_idGrupo = '$idGrupo'";
         $result2 = mysqli_query($conn, $sql2);
+
+        /* borrar grupo asignado al profesor en la tabla tutoria */
+        $sql3 = "UPDATE Tutoria SET Grupo_idGrupo = NULL WHERE Grupo_idGrupo = '$idGrupo'";
+        $result3 = mysqli_query($conn, $sql3);
+
+
+        /* borrar registros de la tabla tutoria donde el id del grupo es igual a 0, significa que se ha eliminado un grupo */
+        $sql4 = "DELETE FROM Tutoria WHERE Grupo_idGrupo = 0";
+        $result4 = mysqli_query($conn, $sql4);
+
+        
 
 
         if($conn->query($sql) === TRUE){
@@ -39,7 +50,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location = 'delete&updateGrupo.php';
+                        window.location = 'deleteUpdateGrupo.php';
                     }
                 })
             </script>";

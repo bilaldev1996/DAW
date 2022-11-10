@@ -44,7 +44,7 @@
                     <td>" . $fila['idGrupo'] . "</td>
                     <td>" . $fila['nombre'] . "</td>
                     <td>" . $fila['curso'] . "</td>
-                    <td><a class='btn btn-danger btn-grupo' name='deleteGrupo'>Delete <i class='bi bi-trash-fill'></i></a></td>
+                    <td><a class='btn btn-danger btn-grupo' name='deleteGrupo'>Borrar <i class='bi bi-trash-fill'></i></a></td>
                     <script>
                         document.querySelectorAll('.btn-grupo').forEach((item) => {
                             item.addEventListener('click', (e) => {
@@ -65,7 +65,7 @@
                             })
                         })
                     </script>
-                    <td><a class='btn btn-warning' href='../update/updateGrupo.php?idGrupo=" . $fila['idGrupo'] . "'>Edit <i class='bi bi-pencil-fill'></i></a></td>
+                    <td><a class='btn btn-warning' href='../update/updateGrupo.php?idGrupo=" . $fila['idGrupo'] . "'>Editar <i class='bi bi-pencil-fill'></i></a></td>
                 </tr>";
     }
     echo "</tbody></table>";
