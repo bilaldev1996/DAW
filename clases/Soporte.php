@@ -1,5 +1,8 @@
 <?php
     declare(strict_types=1);
+    include_once './CintaVideo.php';
+    include_once './Dvd.php';
+    include_once './Juego.php';
     // Clase Soporte
     class Soporte{
 

@@ -4,7 +4,8 @@
     class Dvd extends Soporte{
         
         public function __construct(
-            string $titulo, int $numero, 
+            string $titulo, 
+            int $numero, 
             float $precio, 
             public string $idiomas,
             private string $formatPantalla
