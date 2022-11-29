@@ -1,19 +1,29 @@
 <?php
-    include ('../config/config.php');
+
+    /* uso estricto */
+    declare(strict_types=1);
+    include_once ('./config/config.php');
     /* Es una clase que se conecta a una base de datos. */
     class DB {
-        public static function connect() {
-            $conn = new mysqli(HOST, USER, PASSWORD, DBNAME);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-                echo "Connection failed: " . $conn->connect_error;
+        public function __construct(
+            private string $host = HOST,
+            private string $user = USER,
+            private string $password = PASSWORD,
+            private string $db = DBNAME
+        ){}
+
+        /**
+         * Se conecta a la base de datos y devuelve la conexión.
+         * 
+         * @return mysqli El objeto de conexión.
+         */
+        public function connect(): mysqli {
+            $connection = new mysqli($this->host, $this->user, $this->password, $this->db);
+            if ($connection->connect_errno) {
+                die('Error de conexión: ' . $connection->connect_errno);
             }
-            echo "Connected successfully";
-            return $conn;
+            //echo 'Conexión exitosa';
+            return $connection;
         }
-        
     }
-    
-    /* Llamar al método estático `connect()` desde la clase `DB`. */
-    $db = DB::connect();
 ?>
