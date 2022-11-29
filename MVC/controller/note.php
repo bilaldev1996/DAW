@@ -34,15 +34,19 @@
 
         public function listar() : array{
             $listaNotas = $this->notaTablaObj->getNotas();
-            $this->setPagina('Listar notas');
-            $this->setVista('list_note');
             return $listaNotas;
         }
 
         public function insertar($title, $content){
-            $this->setPagina('Insertar nota');
-            $this->setVista('insert_note');
-            $this->notaTablaObj->insertarNotas($title, $content);
+            $this->notaTablaObj->insertarNota($title, $content);
+        }
+
+        public function editar($id, $title, $content){
+            $this->notaTablaObj->editarNota($id, $title, $content);
+        }
+
+        public function eliminar($id){
+            $this->notaTablaObj->eliminarNota($id);
         }
     }
 ?>

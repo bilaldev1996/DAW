@@ -13,6 +13,8 @@
         new NoteTabla()
     );
 
+    $dataToView->setVista($action);
+
     /* load views */
     require_once 'view/templates/header.php';
     require_once 'view/'. $dataToView->getVista().'.php';

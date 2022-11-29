@@ -11,7 +11,23 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center w-100 bg-info p-5">
-            <?php 
-                echo $dataToView->getPagina();
+            <?php
+                switch($dataToView->getVista()){
+                    case 'list_note':
+                        echo 'Listar notas';
+                        break;
+                    case 'insert_note':
+                        echo 'Agregar nota';
+                        break;
+                    case 'edit_note':
+                        echo 'Editar nota';
+                        break;
+                    case 'delete_note':
+                        echo 'Eliminar nota';
+                        break;
+                    default:
+                        echo 'Listar notas';
+                        break;
+                }
             ?>
         </h1>

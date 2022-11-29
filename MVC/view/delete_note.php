@@ -9,8 +9,11 @@
 <body>
     
 
-    <?php
-        echo "Borrar";
-    ?>
+    <!-- mostrar mensaje de nota borrada -->
+    <?php if(isset($_SESSION['delete'])): ?>
+        <div class="alert alert-success">
+            <?php echo $_SESSION['delete']; ?>
+        </div>
+    <?php endif; ?>
 </body>
 </html>

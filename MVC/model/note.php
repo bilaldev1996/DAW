@@ -44,10 +44,33 @@
             return $this->listaNotas;
         }
 
-        public function insertarNotas($title, $content){
+        public function insertarNota($title, $content){
             $sql = "INSERT INTO $this->tabla (title, content) VALUES ('$title', '$content')";
             $result = $this->getConexion()->query($sql);
             if($result){
+                echo 'Nota insertada';
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function editarNota($id, $title, $content){
+            $sql = "UPDATE $this->tabla SET title = '$title', content = '$content' WHERE id = $id";
+            $result = $this->getConexion()->query($sql);
+            if($result){
+                echo 'Nota editada';
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function eliminarNota($id){
+            $sql = "DELETE FROM $this->tabla WHERE id = $id";
+            $result = $this->getConexion()->query($sql);
+            if($result){
+                echo 'Nota eliminada';
                 return true;
             }else{
                 return false;

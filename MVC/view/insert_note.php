@@ -9,8 +9,32 @@
 <body>
     
 
+    <!-- Formulario para insertar una nota con bootstrap -->
+    <div class="container mt-5">
+        <div class="row">
+            <form action="#" class="form-group" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Contenido</label>
+                    <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" name="enviar">Guardar</button>
+            </form>
+        </div>
+    </div>
+
     <?php
-        echo "Insertar";
+        if(isset($_POST['enviar'])){
+            $insert = $dataToView->insertar($_POST['title'], $_POST['content']);
+            if($insert){
+                echo 'Nota insertada';
+            }else{
+                echo 'Error al insertar';
+            }
+        }
     ?>
 </body>
 </html>
