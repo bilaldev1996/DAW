@@ -5,5 +5,5 @@
     define('DBNAME', 'mvc_example');
     define('PASSWORD', '');
 
-    define('DEFAULT_ACTION', 'list');
+    define('DEFAULT_ACTION', 'list_note');
 ?>

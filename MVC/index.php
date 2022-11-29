@@ -1,19 +1,23 @@
 <?php
-    include_once 'config/config.php';
+    
+    include_once 'controller/note.php';
     include_once 'model/note.php';
-    if(!isset($_GET['action'])){
-        $_GET['action'] = DEFAULT_ACTION;
-    }
 
-    $action = $_GET['action'];
-    //echo $action;
+    $action = $_GET['action'] ?? DEFAULT_ACTION;
 
-    $data = array();
-    $data = $controlador->$action();
 
+    $dataToView = [];
+    $dataToView = new NoteController(
+        $action,
+        '',
+        new NoteTabla()
+    );
+
+    $dataToView->setVista($action);
 
     /* load views */
     require_once 'view/templates/header.php';
-    require_once 'view/'. $controlador->view . '.php';
+    require_once 'view/'. $dataToView->getVista().'.php';
     require_once 'view/templates/footer.php';
+
 ?>

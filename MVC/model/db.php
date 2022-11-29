@@ -1,27 +1,29 @@
 <?php
-    include ('../config/config.php');
-    /* Es una clase que se conecta a una base de datos. */
-    class Db {
 
+    /* uso estricto */
+    declare(strict_types=1);
+    include_once ('./config/config.php');
+    /* Es una clase que se conecta a una base de datos. */
+    class DB {
         public function __construct(
-            private $host = HOST,
-            private $user = USER,
-            private $password = PASSWORD,
-            private $dbname = DBNAME,
-            public $conn = null
-        ) {
-        }
+            private string $host = HOST,
+            private string $user = USER,
+            private string $password = PASSWORD,
+            private string $db = DBNAME
+        ){}
 
         /**
-         * Se conecta a la base de datos.
+         * Se conecta a la base de datos y devuelve la conexión.
+         * 
+         * @return mysqli El objeto de conexión.
          */
-        public function connect() {
-            $this->conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);
-            if ($this->conn->connect_error) {
-                die("Connection failed: " . $this->conn->connect_error);
+        public function connect(): mysqli {
+            $connection = new mysqli($this->host, $this->user, $this->password, $this->db);
+            if ($connection->connect_errno) {
+                die('Error de conexión: ' . $connection->connect_errno);
             }
-
-            echo "Connected to database successfully";
+            //echo 'Conexión exitosa';
+            return $connection;
         }
     }
 ?>
