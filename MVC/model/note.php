@@ -44,37 +44,37 @@
             return $this->listaNotas;
         }
 
+        public function getNota($id){
+            $sql = "SELECT * FROM $this->tabla WHERE id = $id";
+            $result = $this->getConexion()->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $this->listaNotas[] = new Note(
+                        $row['id'],
+                        $row['title'],
+                        $row['content']
+                    );
+                }
+            }
+
+            return $this->listaNotas;
+        }
+
         public function insertarNota($title, $content){
             $sql = "INSERT INTO $this->tabla (title, content) VALUES ('$title', '$content')";
-            $result = $this->getConexion()->query($sql);
-            if($result){
-                echo 'Nota insertada';
-                return true;
-            }else{
-                return false;
-            }
+            $this->getConexion()->query($sql);
+        }
+        
+
+        public function eliminarNota($id){
+            $sql = "DELETE FROM $this->tabla WHERE id = $id";
+            $this->getConexion()->query($sql);
         }
 
         public function editarNota($id, $title, $content){
             $sql = "UPDATE $this->tabla SET title = '$title', content = '$content' WHERE id = $id";
-            $result = $this->getConexion()->query($sql);
-            if($result){
-                echo 'Nota editada';
-                return true;
-            }else{
-                return false;
-            }
+            $this->getConexion()->query($sql);
         }
 
-        public function eliminarNota($id){
-            $sql = "DELETE FROM $this->tabla WHERE id = $id";
-            $result = $this->getConexion()->query($sql);
-            if($result){
-                echo 'Nota eliminada';
-                return true;
-            }else{
-                return false;
-            }
-        }
     }
 ?>

@@ -15,25 +15,27 @@
             <form action="#" class="form-group" method="POST">
                 <div class="mb-3">
                     <label for="title" class="form-label">Titulo</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="title" required>
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">Contenido</label>
-                    <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" name="enviar">Guardar</button>
+                <a href="index.php" class="btn btn-outline-primary">Volver</a>
             </form>
         </div>
     </div>
 
     <?php
         if(isset($_POST['enviar'])){
-            $insert = $dataToView->insertar($_POST['title'], $_POST['content']);
-            if($insert){
-                echo 'Nota insertada';
-            }else{
-                echo 'Error al insertar';
-            }
+            /* comprobar que los campos tno estén vacios */
+            if(!empty($_POST['title']) && !empty($_POST['content'])){
+                $dataToView->insertar($_POST['title'], $_POST['content']);
+                echo '<div class="mt-3 alert alert-success" role="alert">
+                            Nota insertada correctamente
+                        </div>';
+            }                   
         }
     ?>
 </body>

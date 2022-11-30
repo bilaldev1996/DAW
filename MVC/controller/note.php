@@ -32,21 +32,25 @@
             $this->pagina = $pagina;
         }
 
-        public function listar() : array{
-            $listaNotas = $this->notaTablaObj->getNotas();
-            return $listaNotas;
+        public function listar(){
+            return $this->notaTablaObj->getNotas();
+        }
+
+        public function getNota($id){
+            return $this->notaTablaObj->getNota($id);
         }
 
         public function insertar($title, $content){
             $this->notaTablaObj->insertarNota($title, $content);
         }
 
+        public function eliminar($id){
+            $this->notaTablaObj->eliminarNota($id);
+        }
+
         public function editar($id, $title, $content){
             $this->notaTablaObj->editarNota($id, $title, $content);
         }
 
-        public function eliminar($id){
-            $this->notaTablaObj->eliminarNota($id);
-        }
     }
 ?>
