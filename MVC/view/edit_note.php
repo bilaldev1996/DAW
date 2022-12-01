@@ -26,7 +26,7 @@
                         <textarea name="content" id="content" cols="20" rows="5" class="form-control"><?php echo $nota[0]->content; ?></textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-warning" name="enviar">
+                        <button type="submit" class="btn btn-warning" name="editar">
                             <i class="bi bi-pencil-square"></i>
                             Editar
                         </button>
